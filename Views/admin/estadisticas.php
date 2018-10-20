@@ -20,11 +20,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <div>
                 <ul class="navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="estacionamiento.php">Estacionamiento</a>
+                    <a class="nav-link active" href="estacionamiento.php">Estacionamiento</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="entradas.php">Entradas</a>
@@ -38,7 +38,14 @@
         </div>
     </nav>
       <!-- CONTENIDO -->
-  
+   <div class="container">
+
+        <div class="row">
+        <div class="col-lg-12">
+            <br><br><br><h1 class="text-center">Estadísticas</h1><br>
+        </div>
+
+        </div>
   
   
     <!-- FIN CONTENIDO -->

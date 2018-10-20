@@ -13,18 +13,18 @@
   <body>
 
   <!-- MENÚ -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">CIA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="estacionamiento.php">Estacionamiento</a>
+                <a class="nav-link active" href="estacionamiento.php">Estacionamiento</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="entradas.php">Entradas</a>
@@ -37,7 +37,7 @@
     </nav>
     <!-- CONTENIDO -->
     <div class="container">
-
+    <div class="row"><br><br></div>
         <div class="row">
         <div class="col-lg-12">
             <br><h1 class="text-center">Estacionamiento</h1><br>
@@ -75,18 +75,21 @@
     <!-- OPCIONES BOTONES -->
         <div class="row">
             <div class="col-12 text-center"><br><br>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_visitante">Estadísticas</button>
+                <a class="btn btn-primary" href="estadisticas.php" role="button">Estadísticas</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_comunidad">Exportar</button>
             </div>
         </div>
-        <br><br>
+        <br>
           <!-- <hr class="my-4"> -->
 
-    <!-- TABLAS -->
+    <!-- TABLA -->
     <div class="row">
+        <div class="col-lg-12">
+            <br><h2 class="text-center">Registros</h1><br>
+        </div>
         <div class="col-lg-2"></div>
-    <div class="col-lg-8"> 
-        <table class="table table-hover">
+    <div class="col-lg-8" id="table_registros"> 
+        <table class="table table-hover table-bordered">
             <thead>
                 <tr> 
                     <th> Nombre </th>
@@ -120,6 +123,19 @@
                 </tr>
             </tbody>
         </table>
+        <!-- paginador -->
+        <div class="col-12 ">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination align-center justify-content-md-center">
+                    <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                    <li class="page-item active"><a class="page-link " href="#table_registros">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#table_registros">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#table_registros">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#table_registros">Siguiente</a></li>
+                </ul>
+            </nav>
+        </div>
+        
     </div>
     </div>
     </div>
