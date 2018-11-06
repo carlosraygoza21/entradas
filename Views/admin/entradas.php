@@ -39,7 +39,7 @@
             <br><br><br>
             <div class="row">
                 <div class="col-4">
-                    <input type="datetime" class="form-control" id="input_date">
+                    <input type="date" class="form-control" id="input_date">
                 </div>
                 <div class="col-4 text-center">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_comunidad">Exportar</button>
