@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('admin', function () {
     return view('admin/index_admin');
@@ -30,3 +30,11 @@ Route::get('entradas', function () {
 Route::get('estacionamiento', function () {
     return view('admin/estacionamiento');
 });
+
+Route::get('guardia', function () {
+    return view('guardia/index_guardia');
+});
+
+Auth::routes();
+// Autentificación
+Route::get('/', 'HomeController@index')->name('home');

@@ -20,25 +20,34 @@
   <body>
     
   <!-- MENÚ -->
+  @if(Auth::user()->id_perfil == 1)
+        {{ $link = "/" }}
+  @else
+        {{ $link = "/guardia" }}
+  @endif
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#">CIA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{$link}}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/estacionamiento">Estacionamiento</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/entradas">Entradas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/usuarios">Usuarios</a>
-            </li>
+            @if(Auth::user()->id_perfil == 1)
+                <li class="nav-item">
+                    <a class="nav-link" href="/estacionamiento">Estacionamiento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/entradas">Entradas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/usuarios">Usuarios</a>
+                </li>
+            @endif
             </ul>
         </div>
     </nav>
