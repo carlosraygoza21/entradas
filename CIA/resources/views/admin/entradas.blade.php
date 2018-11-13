@@ -8,40 +8,56 @@
 <div class="bg-light">
     <div class="row">
         <div class="col-1"></div>
-        <div class="col-4">
+        <div class="col-8">
             <br><br><h2 class="text-left">Entradas</h2>
+        </div>
+        {{-- botones --}}
+        <div class="col-2 text-right">
+            <br><br>
+            <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                <i class="fas fa-chart-pie"></i>
+            </button> 
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_comunidad">
+                <i class="fas fa-file-excel"></i>
+            </button>
         </div>
         <div class="col-2"></div>
     </div>
     <br>
 </div>
-<br>
 
+<!-- TABS -->
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12"> 
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Visitantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Alumnos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
-    <br>
-    <!-- TABS -->
     <div class="row">
-        <div class="col-12"> 
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Visitantes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Alumnos</a>
-                </li>
-            </ul>
+        <div class="col-12">
             <div class="tab-content" id="myTabContent">
                 {{-- barra de botones --}}
                 <div class="row">
                     {{-- date --}}
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                     <div class="col-3">
                         <br>
                         <input type="date" class="form-control" id="input_date">
                     </div>
                     {{-- botones --}}
-                    <div class="col-2 text-center">
+                    {{-- <div class="col-2 text-center">
                         <br>
                         <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                             <i class="fas fa-chart-pie"></i>
@@ -49,9 +65,9 @@
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_comunidad">
                             <i class="fas fa-file-excel"></i>
                         </button>
-                    </div>
+                    </div> --}}
                     {{-- search --}}
-                    <div class="col-4">
+                    <div class="col-5">
                         <br>
                         <form class="form-inline">
                             <input class="form-control d" type="search" placeholder="Search" aria-label="Search">
@@ -176,6 +192,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
     @endsection

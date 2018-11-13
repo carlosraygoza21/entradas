@@ -28,13 +28,14 @@ class HomeController extends Controller
         // User role
         if (Auth::check()){
             $id_perfil = Auth::user()->id_perfil; 
+            // dd($id_perfil);
             // Check user role
             switch ($id_perfil) {
                 case '1':
-                        return view('admin/index_admin');
+                        return view('admin.index_admin');
                     break;
                 case '2':
-                        return view ('guardia/index_guardia');
+                        return view ('guardia.index_guardia');
                     break; 
                 default:
                         return view ('login'); 

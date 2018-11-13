@@ -4,7 +4,7 @@
 
 @section('content')
     
-<!-- Modal de añadir usuario -->
+<!-- MODAL de añadir usuario -->
     <div class="modal fade" id="modal_usuario" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -15,35 +15,42 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="/usuarios">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label class="col-12 col-form-label">Nombre</label>
                             <div class="col-12">                                
-                                <input class="form-control" id="nombre_usuario" type="text" placeholder="" required>
+                                <input class="form-control" name="nombre" type="text" placeholder="" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-2 col-form-label">Email</label>
+                            <label class="col-2 col-form-label">Correo</label>
                             <div class="col-12">
-                                <input type="email" class="form-control" id="email_usuario" value="" required>
+                                <input type="email" class="form-control" name="correo" value="" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-2 col-form-label">Usuario</label>
-                            <div class="col-12">
-                                <input type="text" class="form-control" id="usuario_usuario" value="" required>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label class="col-2 col-form-label">Contraseña</label>
                             <div class="col-12">
-                                <input type="password" class="form-control" id="contra_usuario" value="" required>
+                                <input type="password" class="form-control" name="password" value="" required>
                             </div>
                         </div>     
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Coordinador
+                                </label>
+                            </div>
+                        </div>
+
+
                         <div class="form-group">
                             <label class="col-2 col-form-label">Perfil</label>
                             <div class="col-12">
-                                <select class="form-control" id="exampleFormControlSelect1">
+                                <select class="form-control" name="id_perfil">
                                 <option value="0">Guardia estacionamiento</option>
                                 <option value="1">Administrativo</option>
                                 </select>
@@ -58,79 +65,85 @@
             </div>
         </div>
     </div>
-    <!-- container -->
+<!-- TITULO -->
     <div class="bg-light">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-6">
-            <br><br><h2 class="text-left">Usuarios</h2>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-6">
+                <br><br><h2 class="text-left">Usuarios</h2>
+            </div>
+            {{-- botones --}}
+            <div class="col-4 text-right">
+                <br><br>
+                <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Estadísticas">
+                    <i class="fas fa-chart-pie"></i>
+                </button> 
+                <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
+                    <i class="fas fa-file-excel"></i>
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_usuario">Agregar</button>
+            </div>
+            <div class="col-2"></div>
         </div>
-        {{-- botones --}}
-        <div class="col-4 text-right">
-            <br><br>
-            <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                <i class="fas fa-chart-pie"></i>
-            </button> 
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_comunidad">
-                <i class="fas fa-file-excel"></i>
-            </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_usuario">Agregar</button>
-        </div>
-        
-        <div class="col-2"></div>
+        <br>
     </div>
     <br>
-</div>
-<br>
 
-  <div class="container"><br>
-    <!-- REGISTRO -->
 
-  <div class="row"> 
-        <div class="col-12" id="table_alumnos"> 
-            <table class="table table-hover table-bordered">
-                <thead>
-                    <tr> 
-                        <th> Nombre </th>
-                        <th> Correo </th>
-                        <th> Usuario </th>
-                        <th> Perfil </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ruben Macías</td>
-                        <td>rubencito_hassemcito@academicos.udg.mx</td>
-                        <td>Hassemcitop</td>
-                        <td>Administrador </td>
-                    </tr>
-                    <tr>
-                        <td>Don Pepe</td>
-                        <td>carlos_cool@alumnos.udg.mx</td>
-                        <td>carlos_raygoza</td>
-                        <td>Administrador</td>
-                    </tr>
-                    <tr>
-                        <td>Natalia Cervantes</td>
-                        <td>natalithap@alumnos.udg.mx</td>
-                        <td>la_baby</td>
-                        <td>Guardia Estacionamiento</td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- paginador -->
-            <div class="col-12">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination align-center justify-content-md-center">
-                        <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-                        <li class="page-item active"><a class="page-link " href="#table_registros">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#table_registros">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#table_registros">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#table_registros">Siguiente</a></li>
-                    </ul>
-                </nav>
+        
+    
+<!-- TABLA USUARIOS -->
+<div class="container"><br>
+    <div class="row"> 
+            <div class="col-12" id="table_alumnos"> 
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr> 
+                            <th> Nombre </th>
+                            <th> Correo </th>
+                            <th> Código </th>
+                            <th> Perfil </th>
+                            <th> Coordinador </th>
+                            <th> Huella </th>
+                        </tr>
+                    </thead>
+                    @foreach ($usuarios as $usuario)
+                    <tbody>
+                        <tr>
+                            <td>{{ $usuario->nombre }}</td>
+                            <td>{{ $usuario->correo }}</td>
+                            <td>{{ $usuario->codigo }}</td>
+                            <td>
+                                @if($usuario->id_perfil === 1) Administrativo
+                                @elseif($usuario->id_perfil === 2) Guardia
+                                @endif 
+                            </td>
+                            </td>
+                            <td>{{ $usuario->es_coordi }} </td>
+                            <td>
+                                @if ($usuario->huella != NULL) Si
+                                @else No
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                    @endforeach
+                </table>
+                <!-- paginador -->
+                <br>
+                <div class="col-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination align-center justify-content-md-center">
+                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                            <li class="page-item active"><a class="page-link " href="#table_registros">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#table_registros">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#table_registros">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#table_registros">Siguiente</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-        </div>
+    </div>
 </div>
 
 @endsection

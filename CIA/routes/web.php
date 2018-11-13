@@ -15,13 +15,10 @@
 //     return view('welcome');
 // });
 
-Route::get('admin', function () {
-    return view('admin/index_admin');
-});
+//ADMIN index page
+Route::get('admin', 'AdminController@index');
 
-Route::get('usuarios', function () {
-    return view('admin/usuarios');
-});
+Route::get('usuarios', 'UsuariosController@index');
 
 Route::get('entradas', function () {
     return view('admin/entradas');
@@ -31,9 +28,9 @@ Route::get('estacionamiento', function () {
     return view('admin/estacionamiento');
 });
 
-Route::get('guardia', function () {
-    return view('guardia/index_guardia');
-});
+//GUARDIA index page
+Route::get('guardia', 'GuardiaController@index');
+
 
 Auth::routes();
 // Autentificación
