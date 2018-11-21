@@ -32,11 +32,11 @@
         <div class="row">
             <div class="col-12"> 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Visitantes</a>
+                     <li class="nav-item">
+                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#cucei" role="tab" aria-controls="profile" aria-selected="false">CUCEI</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Alumnos</a>
+                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#visitantes" role="tab" aria-controls="home" aria-selected="true">Visitantes</a>
                     </li>
                 </ul>
             </div>
@@ -77,7 +77,7 @@
                     
                 </div>
                 <!-- primer tab -->
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active" id="visitantes" role="tabpanel" aria-labelledby="home-tab">
                     <!-- TABLA -->
                     <br>
 
@@ -90,6 +90,7 @@
                                     <th> Nombre </th>
                                     <th> Asunto </th>
                                     <th> Destinatario </th>
+                                    <th> Puerta </th>
                                     <th> Entrada </th>
                                     <th> Salida </th>
                                     <th> Fecha </th>
@@ -137,7 +138,7 @@
                     </div>
                 </div>
                 <!-- segundo tab -->
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="cucei" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
                     <div class="col-12" id="table_alumnos"> 
                         <table class="table table-hover table-bordered">

@@ -37,7 +37,7 @@ class HomeController extends Controller
                 case '2':
                         return view ('guardia.index_guardia');
                     break; 
-                default:
+                default:                
                         return view ('login'); 
                     break;
             }

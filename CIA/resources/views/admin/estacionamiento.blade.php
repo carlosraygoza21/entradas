@@ -40,7 +40,7 @@
             <thead>
                 <tr> 
                     <th> Nombre </th>
-                    <th> Carrera </th>
+                    <th> Puerta </th>
                     <th> Llegada </th>
                     <th> Salida </th>
                     <th> Fecha </th>
@@ -49,14 +49,14 @@
             <tbody>
                 <tr>
                     <td>James</td>
-                    <td>INCO</td>
+                    <td>Boulevard </td>
                     <td>06:55 am</td>
                     <td>11:15 am</td>
                     <td>05/09/2018</td>
                 </tr>
                 <tr>
                     <td>Maria</td>
-                    <td>INNI</td>
+                    <td>Boulevard</td>
                     <td>10:45 am</td>
                     <td>-</td>
                     <td>05/09/18</td>

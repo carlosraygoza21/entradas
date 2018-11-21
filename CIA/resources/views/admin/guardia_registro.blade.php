@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Usuarios')
+@section('title', 'Guardias')
 
 @section('content')
     
@@ -9,67 +9,47 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Horario de guardia</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="/usuarios">
-                    {{ csrf_field() }}
+                        {{ csrf_field() }}
                         <div class="form-group">
-                            <label class="col-12 col-form-label">Nombre</label>
+                            <label class="col-12 col-form-label">Guardia</label>
                             <div class="col-12">                                
-                                <input class="form-control" name="name" type="text" placeholder="" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-2 col-form-label">Correo</label>
-                            <div class="col-12">
-                                <input type="email" class="form-control" name="email" value="" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-12 col-form-label">Código</label>
-                            <div class="col-12">                                
-                                <input class="form-control" name="id" type="text" placeholder="" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="col-2 col-form-label">Contraseña</label>
-                            <div class="col-12">
-                                <input type="password" class="form-control" name="password" value="" required>
-                            </div>
-                        </div>     
-
-                        <div class="form-group">
-                            <div class="col-12">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input"  value="" id="iscoordi" name="iscoordi">
-                                    <label class="form-check-label" for="defaultCheck1">Coordinador</label>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-2 col-form-label">Perfil</label>
-                            <div class="col-12">
                                 <select class="form-control" name="id_perfil">
-                                    {{-- <option value="3">Guardia estacionamiento</option> --}}
-                                    <option value="1">Administrativo</option>
-                                    <option value="2">Guardia</option>
+                                <option value="0">Persona 1</option>
+                                <option value="1">Persona 2</option>
                                 </select>
                             </div>
-                        </div>               
-                    
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">Puerta</label>
+                            <div class="col-12">
+                                <select class="form-control" name="id_perfil">
+                                <option value="0">Puerta estacionamiento Boulevard</option>
+                                <option value="1">Puerta entrada Boulevard</option>
+                                </select>
+                            </div>
+                        </div>  
+
+                        <div class="form-group">
+                            <label class="col-2 col-form-label">Horario</label>
+                            <div class="col-12">
+                                <input type="week" class="form-control" name="semana">
+                            </div>
+                            
+                        </div>                   
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Registrar</button>
                 </div>
-                </form>
             </div>
         </div>
     </div>
@@ -78,7 +58,7 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-6">
-                <br><br><h2 class="text-left">Usuarios</h2>
+                <br><br><h2 class="text-left">Guardias</h2>
             </div>
             {{-- botones --}}
             <div class="col-4 text-right">
@@ -98,7 +78,7 @@
     <br>
 
 
-        
+  
     
 <!-- TABLA USUARIOS -->
 <div class="container"><br>
@@ -108,35 +88,33 @@
                     <thead>
                         <tr> 
                             <th> Nombre </th>
-                            <th> Correo </th>
-                            <th> Código </th>
-                            <th> Perfil </th>
-                            {{-- <th> Coordinador </th> --}}
-                            {{-- <th> Huella </th> --}}
+                            <th> Puerta </th>
+                            <th> Hora de entrada </th>
+                            <th> Hora de salida </th>
+                            <th> Tiempo </th>
                         </tr>
                     </thead>
-                    @foreach ($usuarios as $usuario)
+                    {{-- @foreach ($usuarios as $usuario)
                     <tbody>
                         <tr>
-                            <td>{{ $usuario->name }}</td>
-                            <td>{{ $usuario->email }}</td>
-                            <td>{{ $usuario->id }}</td>
+                            <td>{{ $usuario->nombre }}</td>
+                            <td>{{ $usuario->correo }}</td>
+                            <td>{{ $usuario->codigo }}</td>
                             <td>
                                 @if($usuario->id_perfil === 1) Administrativo
                                 @elseif($usuario->id_perfil === 2) Guardia
-                                @elseif($usuario->id_perfil === 3) Alumno
                                 @endif 
                             </td>
                             </td>
-                            {{-- <td>{{ $usuario->iscoordi }} </td> --}}
-                            {{-- <td>
+                            <td>{{ $usuario->es_coordi }} </td>
+                            <td>
                                 @if ($usuario->huella != NULL) Si
                                 @else No
                                 @endif
-                            </td> --}}
+                            </td>
                         </tr>
                     </tbody>
-                    @endforeach
+                    @endforeach --}}
                 </table>
                 <!-- paginador -->
                 <br>
