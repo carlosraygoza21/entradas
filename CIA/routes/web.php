@@ -24,14 +24,19 @@ Route::get('registro_guardia', 'AdminController@guardia');
 Route::get('usuarios', 'UsuariosController@index');
 //guardar un usuario
 Route::post('usuarios', 'UsuariosController@store');
+//guardar un guardia_puerta
+Route::post('guardia_puerta', 'AdminController@guardia_puerta_store');
+
 
 //return vistas
 Route::get('entradas', function () {
     return view('admin/entradas');
 });
-Route::get('estacionamiento', function () {
+Route::get('estacionamiento', 'AdminController@show_registros_estacionamiento'); 
+/* function () {
     return view('admin/estacionamiento');
 });
+*/
 
 //GUARDIA PANEL index page
 Route::get('guardia', 'GuardiaController@index');

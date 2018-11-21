@@ -41,33 +41,20 @@
                 <tr> 
                     <th> Nombre </th>
                     <th> Puerta </th>
-                    <th> Llegada </th>
-                    <th> Salida </th>
+                    <th> Hora </th>
                     <th> Fecha </th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($registros as $registro)
                 <tr>
-                    <td>James</td>
-                    <td>Boulevard </td>
-                    <td>06:55 am</td>
-                    <td>11:15 am</td>
-                    <td>05/09/2018</td>
+                    <td>{{$registro->name}}</td>
+                    <td>{{$registro->domicilio}} </td>
+                    <td>{{$registro->hora}}</td>
+                    <td>{{$registro->fecha}}</td>
                 </tr>
-                <tr>
-                    <td>Maria</td>
-                    <td>Boulevard</td>
-                    <td>10:45 am</td>
-                    <td>-</td>
-                    <td>05/09/18</td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                </tr>
+                @endforeach
+              
             </tbody>
         </table>
     </div>

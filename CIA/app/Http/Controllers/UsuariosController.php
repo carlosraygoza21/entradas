@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 class UsuariosController extends Controller
 {
     public function index(){
-
         $usuarios = User::all();
         // $usuarios = auth()->user()-> 
         return view ('admin/usuarios', compact('usuarios'));
@@ -24,8 +23,10 @@ class UsuariosController extends Controller
         $usuarios->id = request('id');
         $usuarios->password = Hash::make(request('password'));
         $usuarios->id_perfil = request('id_perfil');
-        // $usuarios->iscoordi = $request->input('iscoordi');
+        $usuarios->eliminado = 0;
+        $usuarios->iscoordi = 0; //= $request->input('iscoordi');
 
         $usuarios->save();
+        return redirect()->action('UsuariosController@index');
     }
 }

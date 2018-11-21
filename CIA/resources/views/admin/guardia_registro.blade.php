@@ -3,7 +3,7 @@
 @section('title', 'Guardias')
 
 @section('content')
-    
+
 <!-- MODAL de añadir usuario -->
     <div class="modal fade" id="modal_usuario" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -15,41 +15,53 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/usuarios">
+                    <form method="POST" action="/guardia_puerta">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label class="col-12 col-form-label">Guardia</label>
-                            <div class="col-12">                                
-                                <select class="form-control" name="id_perfil">
-                                <option value="0">Persona 1</option>
-                                <option value="1">Persona 2</option>
+                            <div class="col-12">                              
+                                 
+                                <select class="form-control" name="id_usuario">
+                                @foreach ($asignarGuardia as $guardia)
+                                    <option value="{{$guardia->id}}">{{$guardia->name}}</option>
+                                @endforeach 
                                 </select>
                             </div>
                         </div>
-
+                        
                         <div class="form-group">
                             <label class="col-2 col-form-label">Puerta</label>
                             <div class="col-12">
-                                <select class="form-control" name="id_perfil">
-                                <option value="0">Puerta estacionamiento Boulevard</option>
-                                <option value="1">Puerta entrada Boulevard</option>
+                                <select class="form-control" name="id_puerta">
+                                @foreach ($puertas as $puerta)
+                                <option value="{{$puerta->id}}">{{$puerta->domicilio}}, {{$puerta->nombre}}</option>
+                                @endforeach 
                                 </select>
+
                             </div>
                         </div>  
 
                         <div class="form-group">
+                            <label class="col-12 col-form-label">ID</label>
+                            <div class="col-12">                              
+                                <input type="number" class="form-control" name="id">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-2 col-form-label">Horario</label>
                             <div class="col-12">
-                                <input type="week" class="form-control" name="semana">
+                                <input type="text" class="form-control" name="tiempo">
                             </div>
                             
                         </div>                   
-                    </form>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Registrar</button>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -58,7 +70,7 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-6">
-                <br><br><h2 class="text-left">Guardias</h2>
+                <br><br><h2 class="text-left">Guardias asignados</h2>
             </div>
             {{-- botones --}}
             <div class="col-4 text-right">
@@ -69,7 +81,7 @@
                 <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
                     <i class="fas fa-file-excel"></i>
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_usuario">Agregar</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_usuario">Asignar</button>
             </div>
             <div class="col-2"></div>
         </div>
@@ -77,8 +89,6 @@
     </div>
     <br>
 
-
-  
     
 <!-- TABLA USUARIOS -->
 <div class="container"><br>
@@ -87,34 +97,25 @@
                 <table class="table table-hover table-bordered">
                     <thead>
                         <tr> 
+                            <th> Código </th>
                             <th> Nombre </th>
-                            <th> Puerta </th>
-                            <th> Hora de entrada </th>
-                            <th> Hora de salida </th>
+                            <th> Correo </th>
                             <th> Tiempo </th>
                         </tr>
                     </thead>
-                    {{-- @foreach ($usuarios as $usuario)
+                    @foreach ($guardias as $guardia)
                     <tbody>
                         <tr>
-                            <td>{{ $usuario->nombre }}</td>
-                            <td>{{ $usuario->correo }}</td>
-                            <td>{{ $usuario->codigo }}</td>
-                            <td>
-                                @if($usuario->id_perfil === 1) Administrativo
-                                @elseif($usuario->id_perfil === 2) Guardia
-                                @endif 
+                            <td>{{ $guardia->id }}</td>
+                            <td>{{ $guardia->name }}</td>
+                            <td>{{ $guardia->email }}</td>
+                            <td> {{$guardia->tiempo }}
+                               
                             </td>
-                            </td>
-                            <td>{{ $usuario->es_coordi }} </td>
-                            <td>
-                                @if ($usuario->huella != NULL) Si
-                                @else No
-                                @endif
-                            </td>
+                            
                         </tr>
                     </tbody>
-                    @endforeach --}}
+                    @endforeach
                 </table>
                 <!-- paginador -->
                 <br>
