@@ -15,7 +15,10 @@ class AdminController extends Controller
     }
 
     public function index_guardia(){
-        return view ('/registro_guardia');
+
+        
+
+        // return view ('/registro_guardia');
     }
 
     public function guardia(){
@@ -24,8 +27,9 @@ class AdminController extends Controller
         $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
         ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')->get();
         
-        $guardias = DB::table('guardia_puerta')->select('users.id', 'users.name', 'users.email', 'guardia_puerta.tiempo')
+        $guardias = DB::table('guardia_puerta')->select('users.id', 'users.name', 'users.email', 'guardia_puerta.tiempo', 'puerta.domicilio')
         ->join('users', 'guardia_puerta.id_usuario', '=', 'users.id')
+        ->join('puerta', 'guardia_puerta.id_puerta', '=', 'puerta.id')
         ->where('guardia_puerta.eliminado', 0)->get();
 
         // $data = [
@@ -56,8 +60,9 @@ class AdminController extends Controller
         $usuarios->eliminado = 0; //$request->input('iscoordi');
 
         $usuarios->save();
-        return redirect()->action('AdminController@index_guardia');
-
+        // return view ('registro_guardia');
+        // return redirect()->action('AdminController@index_guardia');
+        return redirect()->action('AdminController@guardia');
     }
 
     public function show_registros_estacionamiento(){

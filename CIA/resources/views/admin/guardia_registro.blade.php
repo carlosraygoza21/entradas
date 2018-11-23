@@ -101,6 +101,8 @@
                             <th> Nombre </th>
                             <th> Correo </th>
                             <th> Tiempo </th>
+                            <th> Puerta </th>
+
                         </tr>
                     </thead>
                     @foreach ($guardias as $guardia)
@@ -109,10 +111,8 @@
                             <td>{{ $guardia->id }}</td>
                             <td>{{ $guardia->name }}</td>
                             <td>{{ $guardia->email }}</td>
-                            <td> {{$guardia->tiempo }}
-                               
-                            </td>
-                            
+                            <td> {{$guardia->tiempo }} </td>
+                            <td> {{$guardia->domicilio }} </td>
                         </tr>
                     </tbody>
                     @endforeach

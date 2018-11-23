@@ -121,12 +121,14 @@
                             <td>{{ $usuario->name }}</td>
                             <td>{{ $usuario->email }}</td>
                             <td>{{ $usuario->id }}</td>
-                            <td>
-                                @if($usuario->id_perfil === 1) Administrativo
-                                @elseif($usuario->id_perfil === 2) Guardia
-                                @elseif($usuario->id_perfil === 3) Alumno
+                                @if($usuario->id_perfil === 1) 
+                                <td>Administrativo</td>
+                                @elseif($usuario->id_perfil === 2) 
+                                <td>Guardia</td>
+                                @elseif($usuario->id_perfil === 3) 
+                                <td>Alumno</td>
                                 @endif 
-                            </td>
+                            
                             </td>
                             {{-- <td>{{ $usuario->iscoordi }} </td> --}}
                             {{-- <td>
