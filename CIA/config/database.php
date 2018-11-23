@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mysql_hosting'),
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,6 @@ return [
     */
 
     'connections' => [
-
         'sqlite' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
@@ -42,8 +41,8 @@ return [
         // BASE DE DATOS HOSTING
         'mysql_local' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
+            'host' => env('DB_HOST_local', '127.0.0.1'),
+            'port' => env('DB_PORT_local', '3306'),
             'database' => env('DB_DATABASE_local', 'forge'),
             'username' => env('DB_USERNAME_local', 'forge'),
             'password' => env('DB_PASSWORD_local', ''),
@@ -56,7 +55,7 @@ return [
         ],
         
         // BASE DE DATOS HOSTING
-        'mysql' => [
+        'mysql_hosting' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),

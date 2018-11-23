@@ -86,9 +86,9 @@
                 <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Estadísticas">
                     <i class="fas fa-chart-pie"></i>
                 </button> 
-                <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
+                {{-- <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
                     <i class="fas fa-file-excel"></i>
-                </button>
+                </button> --}}
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_usuario">Agregar</button>
             </div>
             <div class="col-2"></div>

@@ -78,9 +78,9 @@
                 <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Estadísticas">
                     <i class="fas fa-chart-pie"></i>
                 </button> 
-                <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
+                {{-- <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
                     <i class="fas fa-file-excel"></i>
-                </button>
+                </button> --}}
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_usuario">Asignar</button>
             </div>
             <div class="col-2"></div>
@@ -97,7 +97,7 @@
                 <table class="table table-hover table-bordered">
                     <thead>
                         <tr> 
-                            <th> Código </th>
+                            <th> ID  </th>
                             <th> Nombre </th>
                             <th> Correo </th>
                             <th> Tiempo </th>
@@ -112,7 +112,7 @@
                             <td>{{ $guardia->name }}</td>
                             <td>{{ $guardia->email }}</td>
                             <td> {{$guardia->tiempo }} </td>
-                            <td> {{$guardia->domicilio }} </td>
+                            <td> {{$guardia->domicilio }}, {{ $guardia->nombre }} </td>
                         </tr>
                     </tbody>
                     @endforeach

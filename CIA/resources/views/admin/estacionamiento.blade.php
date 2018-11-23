@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-8">
-            <br><br><h2 class="text-left">Registros</h2>
+            <br><br><h2 class="text-left">Estacionamiento</h2>
         </div>
         {{-- botones --}}
         <div class="col-2 text-right">
@@ -85,8 +85,23 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
-            <br><h2 class="text-left">Actualmente</h2>
+             <br><h2 class="text-left">Actualmente </h2>
+        
+            <div class="dropdown"> 
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Selecciona
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach ($puertas as $puerta) 
+                        <a class="dropdown-item" href="#">{{ $puerta->domicilio }}</a>
+                    @endforeach
+                    {{-- <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a> --}}
+                </div>
+            </div>
         </div>
+
         <div class="col-lg-2"></div>
     </div>
 

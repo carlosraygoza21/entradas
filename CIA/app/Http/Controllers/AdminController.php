@@ -27,9 +27,10 @@ class AdminController extends Controller
         $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
         ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')->get();
         
-        $guardias = DB::table('guardia_puerta')->select('users.id', 'users.name', 'users.email', 'guardia_puerta.tiempo', 'puerta.domicilio')
+        $guardias = DB::table('guardia_puerta')->select('users.id', 'users.name', 'users.email','guardia_puerta.id', 'guardia_puerta.tiempo', 'puerta.domicilio', 'perfil_puerta.nombre')
         ->join('users', 'guardia_puerta.id_usuario', '=', 'users.id')
         ->join('puerta', 'guardia_puerta.id_puerta', '=', 'puerta.id')
+        ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
         ->where('guardia_puerta.eliminado', 0)->get();
 
         // $data = [
@@ -77,12 +78,17 @@ class AdminController extends Controller
 // JOIN puerta ON logs_usuarios.id_puerta = puerta.id
 // WHERE logs_usuarios.id_puerta = 1
 
-    $registros = DB::table('logs_usuarios')->select('logs_usuarios.hora','logs_usuarios.fecha', 'users.name', 'puerta.domicilio')
-    ->join('users', 'logs_usuarios.id_usuario', '=', 'users.id')
-    ->join('puerta', 'logs_usuarios.id_puerta', 'puerta.id')
-    ->where('logs_usuarios.id_puerta', 1)->get();
+            $registros = DB::table('logs_usuarios')->select('logs_usuarios.hora','logs_usuarios.fecha', 'users.name', 'puerta.domicilio')
+            ->join('users', 'logs_usuarios.id_usuario', '=', 'users.id')
+            ->join('puerta', 'logs_usuarios.id_puerta', 'puerta.id')
+            ->where('logs_usuarios.id_puerta', 1)->get();
 
-        return view ('admin/estacionamiento')->with(compact('registros'));
+            $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
+            ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
+            ->WHERE('id_perfil_puerta','=','1')
+            ->get();
+
+        return view ('admin/estacionamiento')->with(compact('registros', 'puertas'));
 
 
     }
