@@ -43,14 +43,14 @@
                             </div>
                         </div>     
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <div class="col-12">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input"  value="" id="iscoordi" name="iscoordi">
                                     <label class="form-check-label" for="defaultCheck1">Coordinador</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         <div class="form-group">
@@ -104,45 +104,42 @@
 <div class="container"><br>
     <div class="row"> 
             <div class="col-12" id="table_alumnos"> 
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr> 
-                            <th> Nombre </th>
-                            <th> Correo </th>
-                            <th> Código </th>
-                            <th> Perfil </th>
-                            {{-- <th> Coordinador </th> --}}
-                            {{-- <th> Huella </th> --}}
-                        </tr>
-                    </thead>
-                    @foreach ($usuarios as $usuario)
-                    <tbody>
-                        <tr>
-                            <td>{{ $usuario->name }}</td>
-                            <td>{{ $usuario->email }}</td>
-                            <td>{{ $usuario->id }}</td>
-                                @if($usuario->id_perfil === 1) 
-                                <td>Administrativo</td>
-                                @elseif($usuario->id_perfil === 2) 
-                                <td>Guardia</td>
-                                @elseif($usuario->id_perfil === 3) 
-                                <td>Alumno</td>
-                                @endif 
-                            
-                            </td>
-                            {{-- <td>{{ $usuario->iscoordi }} </td> --}}
-                            {{-- <td>
-                                @if ($usuario->huella != NULL) Si
-                                @else No
-                                @endif
-                            </td> --}}
-                        </tr>
-                    </tbody>
-                    @endforeach
-                </table>
+                @if($usuarios->isEmpty())
+                    <div class="alert alert-danger" role="alert">No hay registros</div>
+                @else
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr> 
+                                <th> Código </th>
+                                <th> Nombre </th>
+                                <th> Correo </th>
+                                <th> Perfil </th>
+                                {{-- <th> Coordinador </th> --}}
+                                {{-- <th> Huella </th> --}}
+                            </tr>
+                        </thead>
+                        @foreach ($usuarios as $usuario)
+                        <tbody>
+                            <tr>
+                                <td>{{ $usuario->id }}</td>
+                                <td>{{ $usuario->name }}</td>
+                                <td>{{ $usuario->email }}</td>
+                                <td> {{$usuario->nombre }}</td> {{-- Perfil --}}
+                                {{-- <td>{{ $usuario->iscoordi }} </td> --}}
+                                {{-- <td>
+                                    @if ($usuario->huella != NULL) Si
+                                    @else No
+                                    @endif
+                                </td> --}}
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
+                @endif
                 <!-- paginador -->
                 <br>
-                <div class="col-12">
+                <p> Total: {{$total}}</p>
+                {{-- <div class="col-12">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination align-center justify-content-md-center">
                             <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
@@ -152,7 +149,7 @@
                             <li class="page-item"><a class="page-link" href="#table_registros">Siguiente</a></li>
                         </ul>
                     </nav>
-                </div>
+                </div> --}}
             </div>
     </div>
 </div>

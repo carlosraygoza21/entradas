@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\User;
 use App\GuardiaPuerta;
+use Dotenv\Exception\ValidationException;
 
 
 class AdminController extends Controller
@@ -22,62 +23,136 @@ class AdminController extends Controller
     }
 
     public function guardia(){
-        $asignarGuardia = DB::table('users')->select('name','id')->where('id_perfil','=','2')->get();
+
+        $segunda_base = env('DB_CONNECTION_dos');
+        $fallo = 0;
+        //PRIMERA BASE DE DATOS  
+        try {
+            // dato para tabla
+            $guardias = DB::connection($segunda_base) 
+                ->table('guardia_puerta')->select('users.id', 'users.name', 'users.email', 'guardia_puerta.id', 'guardia_puerta.tiempo', 'puerta.domicilio', 'perfil_puerta.nombre')
+                ->join('users', 'guardia_puerta.id_usuario', '=', 'users.id')
+                ->join('puerta', 'guardia_puerta.id_puerta', '=', 'puerta.id')
+                ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
+                ->where('guardia_puerta.eliminado', '=', '0')
+                ->where('users.eliminado', '=', '0')
+                ->where('puerta.eliminado', '=', '0')
+                ->get();
+            // datos para modal
+            $asignarGuardia = DB::connection($segunda_base) 
+                ->table('users')->select('name', 'id')
+                ->where('id_perfil', '=', '2')
+                ->where('users.eliminado', '=', '0')
+                ->get();
+
+            $puertas = DB::connection($segunda_base)
+                ->table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
+                ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
+                ->where('puerta.eliminado', '=', '0')
+                ->orderBy('id_perfil_puerta', 'asc')
+                ->get();
+
+            $total = DB::connection($segunda_base) 
+                ->table('guardia_puerta')
+                ->where('eliminado', '=', '0')
+                ->count();
+
+        } catch (ValidationException $e) {    
+            // throw $e;
+            $fallo = 1;
+        } catch (\Exception $e) {
+            // throw $e;
+            $fallo = 1;
+        }
+
+        if ($fallo == 1) {
+            try {
+                // dato para tabla
+                $guardias = DB::table('guardia_puerta')->select('users.id', 'users.name', 'users.email', 'guardia_puerta.id', 'guardia_puerta.tiempo', 'puerta.domicilio', 'perfil_puerta.nombre')
+                    ->join('users', 'guardia_puerta.id_usuario', '=', 'users.id')
+                    ->join('puerta', 'guardia_puerta.id_puerta', '=', 'puerta.id')
+                    ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
+                    ->where('guardia_puerta.eliminado', '=', '0')
+                    ->where('users.eliminado', '=', '0')
+                    ->where('puerta.eliminado', '=', '0')
+                    ->get();
         
-        $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
-        ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')->get();
-        
-        $guardias = DB::table('guardia_puerta')->select('users.id', 'users.name', 'users.email','guardia_puerta.id', 'guardia_puerta.tiempo', 'puerta.domicilio', 'perfil_puerta.nombre')
-        ->join('users', 'guardia_puerta.id_usuario', '=', 'users.id')
-        ->join('puerta', 'guardia_puerta.id_puerta', '=', 'puerta.id')
-        ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
-        ->where('guardia_puerta.eliminado', 0)->get();
+                // datos para modal
+                $asignarGuardia = DB::table('users')->select('name', 'id')
+                    ->where('id_perfil', '=', '2')
+                    ->where('users.eliminado', '=', '0')
+                    ->get();
 
-        // $data = [
-        //     'asignarGuardia'  => $asignarGuardia,
-        //     'puertas'   => $puertas,
-        //     'guardias' => $guardias
-        // ];
+                $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
+                    ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
+                    ->where('puerta.eliminado', '=', '0')
+                    ->orderBy('id_perfil_puerta', 'asc')
+                    ->get();
 
-// return View::make('user')->with($data);
+                $total = DB::table('guardia_puerta')
+                    ->where('eliminado', '=', '0')
+                    ->count();
 
-        return view ('admin/guardia_registro')->with(compact('asignarGuardia', 'puertas', 'guardias'));
+            } catch (ValidationException $e) {
+                return redirect()->action('HomeController@index');
+            } catch (\Exception $e) {
+                return redirect()->action('HomeController@index');
+            // throw $e;
+            // $fallo = true;
+            }
+        }
+
+        return view ('admin/guardia_registro')->with(compact('asignarGuardia', 'puertas', 'guardias', 'total'));
     }
 
     public function usuarios(){
         $usuarios = Usuario::all();
+        
+
         // $usuarios = auth()->user()-> 
         return view ('admin/usuarios', compact('usuarios'));
     }
 
 
     public function guardia_puerta_store(){
-        $usuarios = new GuardiaPuerta();
-        
-        $usuarios->id = request('id');
-        $usuarios->id_usuario = request('id_usuario');
-        $usuarios->tiempo = request('tiempo');
-        $usuarios->id_puerta = request('id_puerta');
-        $usuarios->eliminado = 0; //$request->input('iscoordi');
+        $segunda_base = env('DB_CONNECTION_dos'); 
+        //OBTENCIÓN DE DATOS DEL FORM
+        $insert = new GuardiaPuerta();
+        // $insert->id = request('id');
+        $insert->id_usuario = request('id_usuario');
+        $insert->tiempo = request('tiempo');
+        $insert->id_puerta = request('id_puerta');
+        $insert->eliminado = 0;
 
-        $usuarios->save();
-        // return view ('registro_guardia');
-        // return redirect()->action('AdminController@index_guardia');
+        //TRANSACCIÓN PARA GUARDAR EN AMBAS BASES
+        DB::beginTransaction();
+        try {
+            //PRIMERA INSERCIÓN
+            DB::connection($segunda_base)->table('guardia_puerta')->insert(
+                [
+                    // 'id' => $insert->id,
+                    'id_usuario' => $insert->id_usuario,
+                    'id_puerta' => $insert->id_puerta,
+                    'tiempo' => $insert->tiempo,
+                    'eliminado' => $insert->eliminado,
+                ]
+            );
+            //SEGUNDA INSERCIÓN
+            $insert->save();
+        } catch (ValidationException $e) {
+            DB::rollback();
+            // throw $e;
+            return redirect()->action('AdminController@guardia')->with('message', 'error');
+        } catch (\Exception $e) {
+            DB::rollback();
+            // throw $e;
+            return redirect()->action('AdminController@guardia')->with('message', 'error');;
+        }
+        DB::commit();
         return redirect()->action('AdminController@guardia');
     }
 
     public function show_registros_estacionamiento(){
-
-        // $guardias = DB::table('guardia_puerta')->select('users.id', 'users.name', 'users.email', 'guardia_puerta.tiempo')
-        // ->join('users', 'guardia_puerta.id_usuario', '=', 'users.id')
-        // ->where('guardia_puerta.eliminado', 0)->get();
-
-
-//SELECT logs_usuarios.hora, logs_usuarios.fecha, users.name, puerta.domicilio FROM logs_usuarios
-// JOIN users ON logs_usuarios.id_usuario = users.id
-// JOIN puerta ON logs_usuarios.id_puerta = puerta.id
-// WHERE logs_usuarios.id_puerta = 1
-
             $registros = DB::table('logs_usuarios')->select('logs_usuarios.hora','logs_usuarios.fecha', 'users.name', 'puerta.domicilio')
             ->join('users', 'logs_usuarios.id_usuario', '=', 'users.id')
             ->join('puerta', 'logs_usuarios.id_puerta', 'puerta.id')
@@ -89,8 +164,10 @@ class AdminController extends Controller
             ->get();
 
         return view ('admin/estacionamiento')->with(compact('registros', 'puertas'));
+    }
 
-
+    public function show_entradas_visitantes(){
+            
     }
 
 

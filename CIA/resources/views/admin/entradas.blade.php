@@ -80,9 +80,6 @@
                 <div class="tab-pane fade show active" id="visitantes" role="tabpanel" aria-labelledby="home-tab">
                     <!-- TABLA -->
                     <br>
-
-
-
                     <div class="col-12" id="table_registros"> 
                         <table class="table table-hover table-bordered">
                             <thead>
