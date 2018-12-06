@@ -81,49 +81,36 @@
                     <!-- TABLA -->
                     <br>
                     <div class="col-12" id="table_registros"> 
+                        @if($entradas_visitante->isEmpty())
+                            <div class="alert alert-danger" role="alert">No hay registros</div>
+                        @else
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr> 
                                     <th> Nombre </th>
-                                    <th> Asunto </th>
                                     <th> Destinatario </th>
+                                    <th> Asunto </th>
                                     <th> Puerta </th>
                                     <th> Fecha </th>
                                     <th> Tiempo </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>James Franco</td>
-                                    <td>Junta</td>
-                                    <td>Rector</td>
-                                    <td>Av. Revolucion 1500</td>
-                                    
-                                    <td>02/09/18</td>
-                                    <td>17:45 </td>
-                                </tr>
-                                <tr>
-                                    <td>Maria Magdalena</td>
-                                    <td>Informes</td>
-                                    <td>Control Escolar</td>
-                                    <td>Av. Revolucion 1500</td>
-                                    
-                                    <td>02/09/18</td>
-                                    <td>09:05 </td>
-                                </tr>
-                                <tr>
-                                    <td>Saul El Canelo Álvarez</td>
-                                    <td>Golpear a Natalia Cervantes</td>
-                                    <td>Natalia Cervantes</td>
-                                    <td>Av. Revolucion 1500 </td>
-                                    
-                                    <td>02/09/18</td>
-                                    <td>12:37</td>
-                                </tr>
+                                @foreach($entradas_visitante as $entrada)
+                                    <tr>
+                                        <td>{{ $entrada->nombre }}</td>
+                                        <td>{{ $entrada->motivo_visita }}</td>
+                                        <td>{{ $entrada->asunto }}</td>
+                                        <td>{{ $entrada->domicilio }}</td>
+                                        <td>{{ $entrada->fecha_registro }}</td>
+                                        <td>{{ $entrada->hora }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        @endif
                         <!-- paginador -->
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination align-center justify-content-md-center">
                                     <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
@@ -133,49 +120,42 @@
                                     <li class="page-item"><a class="page-link" href="#table_registros">Siguiente</a></li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <!-- segundo tab -->
                 <div class="tab-pane fade" id="cucei" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
                     <div class="col-12" id="table_alumnos"> 
+                        @if($entradas_usuarios->isEmpty())
+                            <div class="alert alert-danger" role="alert">No hay registros</div>
+                        @else
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr> 
-                                    <th> Nombre </th>
                                     <th> Código </th>
+                                    <th> Nombre </th>
                                     <th> Puerta </th>
                                     <th> Fecha </th>
                                     <th> Tiempo </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Ruben Macías</td>
-                                    <td>12343567</td>
-                                    <td>Av. Revolución 1500</td>
-                                    <td>12/12/18</td>
-                                    <td>09:15 </td>
-                                </tr>
-                                <tr>
-                                    <td>Carlos Raygoza</td>
-                                    <td>214520244</td>
-                                    <td>Av. Olímpica 1200</td>
-                                    <td>15/15/18</td>
-                                    <td>09:15 </td>
-                                </tr>
-                                <tr>
-                                    <td>Fráncisco Algo</td>
-                                    <td>23432423423</td>
-                                    <td>Av. Revolución 1500</td>
-                                    <td>15/15/18</td>
-                                    <td>07:15 </td>
-                                </tr>
+                                
+                                @foreach($entradas_usuarios as $entrada)
+                                    <tr>
+                                        <td>{{ $entrada->id }}</td>
+                                        <td>{{ $entrada->name }}</td>
+                                        <td>{{ $entrada->domicilio }}</td>
+                                        <td>{{ $entrada->fecha }}</td>
+                                        <td>{{ $entrada->hora }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        @endif
                         <!-- paginador -->
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination align-center justify-content-md-center">
                                     <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
@@ -185,7 +165,7 @@
                                     <li class="page-item"><a class="page-link" href="#table_registros">Siguiente</a></li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>

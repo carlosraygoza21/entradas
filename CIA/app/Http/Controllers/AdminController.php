@@ -23,7 +23,6 @@ class AdminController extends Controller
     }
 
     public function guardia(){
-
         $segunda_base = env('DB_CONNECTION_dos');
         $fallo = 0;
         //PRIMERA BASE DE DATOS  
@@ -58,13 +57,14 @@ class AdminController extends Controller
                 ->count();
 
         } catch (ValidationException $e) {    
-            // throw $e;
+            throw $e;
             $fallo = 1;
         } catch (\Exception $e) {
-            // throw $e;
+            throw $e;
             $fallo = 1;
         }
 
+        //SEGUNDA BASE SI FALLÓ 
         if ($fallo == 1) {
             try {
                 // dato para tabla
@@ -105,15 +105,6 @@ class AdminController extends Controller
         return view ('admin/guardia_registro')->with(compact('asignarGuardia', 'puertas', 'guardias', 'total'));
     }
 
-    public function usuarios(){
-        $usuarios = Usuario::all();
-        
-
-        // $usuarios = auth()->user()-> 
-        return view ('admin/usuarios', compact('usuarios'));
-    }
-
-
     public function guardia_puerta_store(){
         $segunda_base = env('DB_CONNECTION_dos'); 
         //OBTENCIÓN DE DATOS DEL FORM
@@ -141,34 +132,90 @@ class AdminController extends Controller
             $insert->save();
         } catch (ValidationException $e) {
             DB::rollback();
-            // throw $e;
+            throw $e;
             return redirect()->action('AdminController@guardia')->with('message', 'error');
         } catch (\Exception $e) {
             DB::rollback();
-            // throw $e;
+            throw $e;
             return redirect()->action('AdminController@guardia')->with('message', 'error');;
         }
         DB::commit();
         return redirect()->action('AdminController@guardia');
     }
 
-    public function show_registros_estacionamiento(){
-            $registros = DB::table('logs_usuarios')->select('logs_usuarios.hora','logs_usuarios.fecha', 'users.name', 'puerta.domicilio')
+    public function entradas(){
+        $segunda_base = env('DB_CONNECTION_dos');
+        $fallo = 0;
+        //PRIMERA BASE DE DATOS  
+        try {
+            $entradas_visitante = DB::connection($segunda_base)
+                ->table('visitante_logs')
+                ->join('puerta', 'visitante_logs.id_puerta', '=', 'puerta.id')
+                ->where('puerta.eliminado', '=', '0')
+                ->get();
+
+            $entradas_usuarios = DB::connection($segunda_base)
+                ->table('logs_usuarios')
+                ->join('puerta', 'logs_usuarios.id_puerta', '=', 'puerta.id')
+                ->join('users', 'logs_usuarios.id_usuario', '=', 'users.id')
+                ->where('puerta.eliminado', '=', '0')
+                ->where('users.eliminado', '=', '0')
+                ->get();
+        } catch (ValidationException $e) {    
+            throw $e;
+            $fallo = 1;
+        } catch (\Exception $e) {
+            throw $e;
+            $fallo = 1;
+        }
+
+        //SEGUNDA BASE SI FALLÓ 
+        if ($fallo == 1) {
+            try {
+                $entradas_visitante = DB::table('visitante_logs')
+                    ->join('puerta', 'visitante_logs.id_puerta', '=', 'puerta.id')
+                    ->where('puerta.eliminado', '=', '0')
+                    ->get();
+
+                $entradas_usuarios = DB::table('logs_usuarios')
+                    ->join('puerta', 'logs_usuarios.id_puerta', '=', 'puerta.id')
+                    ->join('users', 'logs_usuarios.id_usuario', '=', 'users.id')
+                    ->where('puerta.eliminado', '=', '0')
+                    ->where('users.eliminado', '=', '0')
+                    ->get();
+
+            } catch (ValidationException $e) {
+                throw $e;
+                return redirect()->action('HomeController@index');
+            } catch (\Exception $e) {
+                throw $e;
+                return redirect()->action('HomeController@index');
+                
+            // $fallo = true;
+            }
+        }
+
+        return view('admin/entradas')->with(compact('entradas_visitante', 'entradas_usuarios'));
+    }
+
+    public function estacionamiento()
+    {
+        $registros = DB::table('logs_usuarios')->select('logs_usuarios.hora', 'logs_usuarios.fecha', 'users.name', 'puerta.domicilio')
             ->join('users', 'logs_usuarios.id_usuario', '=', 'users.id')
             ->join('puerta', 'logs_usuarios.id_puerta', 'puerta.id')
-            ->where('logs_usuarios.id_puerta', 1)->get();
-
-            $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
-            ->join('perfil_puerta', 'id_perfil_puerta', '=', 'perfil_puerta.id')
-            ->WHERE('id_perfil_puerta','=','1')
+            ->join('perfil_puerta', 'puerta.id_perfil_puerta', 'perfil_puerta.id')
+            ->where('perfil_puerta.id', '=', '1')
+            ->orderBy('logs_usuarios.fecha','desc')
             ->get();
 
-        return view ('admin/estacionamiento')->with(compact('registros', 'puertas'));
+        $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
+            ->join('perfil_puerta', 'puerta.id_perfil_puerta', '=', 'perfil_puerta.id')
+            ->where('perfil_puerta.id', '=', '1')
+            ->get();
+
+        return view('admin/estacionamiento')->with(compact('registros', 'puertas'));
     }
 
-    public function show_entradas_visitantes(){
-            
-    }
 
 
 }

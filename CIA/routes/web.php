@@ -22,6 +22,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('admin', 'AdminController@index');
 Route::get('registro_guardia', 'AdminController@guardia');
 Route::get('usuarios', 'UsuariosController@index');
+Route::get('entradas', 'AdminController@entradas');
 //guardar un usuario
 Route::post('usuarios', 'UsuariosController@store');
 //guardar un guardia_puerta
@@ -29,10 +30,11 @@ Route::post('guardia_puerta', 'AdminController@guardia_puerta_store');
 
 
 //return vistas
-Route::get('entradas', function () {
-    return view('admin/entradas');
-});
-Route::get('estacionamiento', 'AdminController@show_registros_estacionamiento'); 
+// Route::get('entradas', function () {
+//     return view('');
+// });
+
+Route::get('estacionamiento', 'AdminController@estacionamiento'); 
 /* function () {
     return view('admin/estacionamiento');
 });
