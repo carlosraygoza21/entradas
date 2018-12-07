@@ -34,7 +34,7 @@ Route::post('guardia_puerta', 'AdminController@guardar_visitante');
 //     return view('');
 // });
 
-Route::get('estacionamiento', 'AdminController@estacionamiento'); 
+Route::get('estacionamiento', 'AdminController@estacionamiento');
 /* function () {
     return view('admin/estacionamiento');
 });
@@ -43,4 +43,5 @@ Route::get('estacionamiento', 'AdminController@estacionamiento');
 //GUARDIA PANEL index page
 Route::get('guardia', 'GuardiaController@index');
 
-
+Route::post('cia-login','CIAController@login');
+Route::post('spaces','CIAController@spacesAvailables');
