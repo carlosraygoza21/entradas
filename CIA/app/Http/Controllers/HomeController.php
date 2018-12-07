@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -53,8 +53,8 @@ class HomeController extends Controller
                     
                         $ocupados = DB::table('logs_usuarios')->where('is_entry', 1)->where('id_puerta', $puerta->id)->where('fecha', 'like', $today.'%')->count();                    
                         $libres = DB::table('logs_usuarios')->where('is_exit', 1)->where('id_puerta', $puerta->id)->where('fecha', 'like', $today . '%')->count();
-                        $ocupadoVis = DB::table('visitante_logs')->where('is_entry', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
-                        $libreVis = DB::table('visitante_logs')->where('is_exit', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
+                        $ocupadoVis = DB::table('visitante_logs')->where('isEntry', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
+                        $libreVis = DB::table('visitante_logs')->where('isExit', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
 
                         $libre_total = $libres + $libreVis;
                         $ocupado_total = $ocupados + $ocupadoVis;
@@ -87,16 +87,16 @@ class HomeController extends Controller
 
                         $ocupados = DB::table('logs_usuarios')->where('is_entry', 1)->where('id_puerta', $puerta->id)->where('fecha', 'like', $today . '%')->count();
                         $libres = DB::table('logs_usuarios')->where('is_exit', 1)->where('id_puerta', $puerta->id)->where('fecha', 'like', $today . '%')->count();
-                        $ocupadoVis = DB::table('visitante_logs')->where('is_entry', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
-                        $libreVis = DB::table('visitante_logs')->where('is_exit', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
+                        $ocupadoVis = DB::table('visitante_logs')->where('isEntry', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
+                        $libreVis = DB::table('visitante_logs')->where('isExit', 1)->where('id_puerta', $puerta->id)->where('fecha_registro', 'like', $today . '%')->count();
 
                         $libre_total = $libres + $libreVis;
                         $ocupado_total = $ocupados + $ocupadoVis;
                         $cupoTotal = $cupoTotal + ($libre_total) - ($ocupado_total);
+
                         // $data = array_merge($data, array("id" => $puerta->id, "cupoTotal" => $cupoTotal , "libre_total" => $libre_total, "ocupado_total" => $ocupado_total));
                         array_push($data, ['id' => $puerta->id, 'domicilio' => $domicilio, 'cupoTotal' => $cupoTotal, 'libre_total' => $libre_total, 'ocupado_total' => $ocupado_total]);
                     }
-                    
 
                         return view ('guardia.index_guardia')->with(compact('puertas', 'data'));
                     break; 

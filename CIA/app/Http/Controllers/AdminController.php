@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\User;
 use App\GuardiaPuerta;
+use App\LogVisitante;
 use Dotenv\Exception\ValidationException;
 
 
@@ -218,43 +219,5 @@ class AdminController extends Controller
     }
 
 
-    //GUARDIA SECCION
-    public function guardar_visitante()
-    {
-        $segunda_base = env('DB_CONNECTION_dos'); 
-        //OBTENCIÓN DE DATOS DEL FORM
-        $insert = new GuardiaPuerta();
-        // $insert->id = request('id');
-        $insert->id_usuario = request('id_usuario');
-        $insert->tiempo = request('tiempo');
-        $insert->id_puerta = request('id_puerta');
-        $insert->eliminado = 0;
-
-        //TRANSACCIÓN PARA GUARDAR EN AMBAS BASES
-        DB::beginTransaction();
-        try {
-            //PRIMERA INSERCIÓN
-            DB::connection($segunda_base)->table('guardia_puerta')->insert(
-                [
-                    // 'id' => $insert->id,
-                    'id_usuario' => $insert->id_usuario,
-                    'id_puerta' => $insert->id_puerta,
-                    'tiempo' => $insert->tiempo,
-                    'eliminado' => $insert->eliminado,
-                ]
-            );
-            //SEGUNDA INSERCIÓN
-            $insert->save();
-        } catch (ValidationException $e) {
-            DB::rollback();
-            throw $e;
-            return redirect()->action('AdminController@guardia')->with('message', 'error');
-        } catch (\Exception $e) {
-            DB::rollback();
-            throw $e;
-            return redirect()->action('AdminController@guardia')->with('message', 'error');;
-        }
-        DB::commit();
-        return redirect()->action('AdminController@guardia');
-    }
+    
 }

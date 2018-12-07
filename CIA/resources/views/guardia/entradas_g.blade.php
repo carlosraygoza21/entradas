@@ -48,34 +48,6 @@
     <div class="row">
         <div class="col-12">
             <div class="tab-content" id="myTabContent">
-                {{-- barra de botones --}}
-                {{-- <div class="row"> --}}
-                    {{-- date --}}
-                    {{-- <div class="col-3"></div>
-                    <div class="col-3">
-                        <br>
-                        <input type="date" class="form-control" id="input_date">
-                    </div> --}}
-                    {{-- botones --}}
-                    {{-- <div class="col-2 text-center">
-                        <br>
-                        <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                            <i class="fas fa-chart-pie"></i>
-                        </button> 
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_comunidad">
-                            <i class="fas fa-file-excel"></i>
-                        </button>
-                    </div> --}}
-                    {{-- search --}}
-                    {{-- <div class="col-5">
-                        <br>
-                        <form class="form-inline">
-                            <input class="form-control d" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </div> --}}
-                    
-                {{-- </div> --}}
                 <!-- primer tab -->
                 <div class="tab-pane fade show active" id="visitantes" role="tabpanel" aria-labelledby="home-tab">
                     <!-- TABLA -->
@@ -93,6 +65,7 @@
                                     <th> Puerta </th>
                                     <th> Fecha </th>
                                     <th> Tiempo </th>
+                                    <th> Status </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,6 +77,12 @@
                                         <td>{{ $entrada->domicilio }}</td>
                                         <td>{{ $entrada->fecha_registro }}</td>
                                         <td>{{ $entrada->hora }}</td>
+                                        @if($entrada->is_entry == 1)
+                                       <td> Marcar salida </td>
+                                            {{-- <td><a href=" {{ url('salida_visitante/'.$entrada->id) }}" >Marcar salida</a> </td> --}}
+                                        @else 
+                                           <td> Ha salido </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

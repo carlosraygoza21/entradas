@@ -21,22 +21,23 @@
                                 <input class="form-control" id="estatus_visitante" type="text" placeholder="Visitante" readonly>
                             </div>
                         </div> --}}
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label class="col-2 col-form-label">Nombre</label>
                             <div class="col-12">
-                                <input type="text" class="form-control" id="nombre_visitante" value="">
+                                <input type="text" class="form-control" name="nombre_visitante" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-2 col-form-label">Destinatario</label>
                             <div class="col-12">
-                                <input type="text" class="form-control" id="destinatario_visitante" value="">
+                                <input type="text" class="form-control" name="destinatario_visitante" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-2 col-form-label">Asunto</label>
                             <div class="col-12">
-                                <textarea class="form-control" id="asunto" rows="1" maxlength="45"></textarea>
+                                <textarea class="form-control" name="asunto" rows="1" maxlength="45"></textarea>
                             </div>
                         </div>   
                         <div class="form-group">
@@ -56,12 +57,13 @@
                                 @endif
                             </div>
                         </div>           
-                    </form>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary">Registrar</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -127,7 +129,7 @@
     <div class="row">
             <div class="col-12 text-center">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_visitante">Agregar visitante</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_comunidad">Agregar comunidad</button>
+                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_comunidad">Agregar comunidad</button> --}}
 
             </div>
         </div>

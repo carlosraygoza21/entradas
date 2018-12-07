@@ -23,12 +23,13 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('registro_guardia', 'AdminController@guardia');
 Route::get('usuarios', 'UsuariosController@index');
 Route::get('entradas', 'AdminController@entradas');
+Route::get('entradas_g', 'GuardiaController@entradas');
 //guardar un usuario
 Route::post('usuarios', 'UsuariosController@store');
 //guardar un guardia_puerta
 Route::post('guardia_puerta', 'AdminController@guardia_puerta_store');
-Route::post('guardia_puerta', 'AdminController@guardar_visitante');
-
+Route::post('guardar_visitante', 'GuardiaController@guardar_visitante');
+Route::post('salida_visitante/{id}', 'GuardiaController@salida_visitante');
 //return vistas
 // Route::get('entradas', function () {
 //     return view('');
