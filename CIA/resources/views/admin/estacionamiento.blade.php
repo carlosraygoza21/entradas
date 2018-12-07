@@ -17,15 +17,15 @@
             <br><br><h2 class="text-left">Estacionamiento</h2>
         </div>
         {{-- botones --}}
-        <div class="col-2 text-right">
-            <br><br>
-            <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+        {{-- <div class="col-2 text-right">
+            <br><br> --}}
+            {{-- <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 <i class="fas fa-chart-pie"></i>
-            </button> 
+            </button>  --}}
             {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_comunidad">
                 <i class="fas fa-file-excel"></i>
             </button> --}}
-        </div>
+        {{-- </div> --}}
         <div class="col-2"></div>
     </div>
     <br>
@@ -64,7 +64,7 @@
     </div>
     {{-- <div class="col-2"></div> --}}
 </div>        
-<div class="row">   
+{{-- <div class="row">   
     <!-- paginador -->
     <div class="col-12 ">
         <nav aria-label="Page navigation example">
@@ -77,75 +77,12 @@
             </ul>
         </nav>
     </div>
-</div> 
+</div>  --}}
 
 </div>
 
 
 
-{{-- title Estacionamiento --}}
-<br><br><br>
-<div class="bg-light">
-    <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-             <br><h2 class="text-left">Actualmente </h2>
-        
-            <div class="dropdown"> 
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Selecciona
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    @foreach ($puertas as $puerta) 
-                        <a class="dropdown-item" href="#">{{ $puerta->domicilio }}</a>
-                    @endforeach
-                    {{-- <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a> --}}
-                </div>
-            </div>
-        </div>
 
-        <div class="col-lg-2"></div>
-    </div>
-
-    <br>
-    {{-- container con tabla --}}
-    <div class="container bg-light">
-        <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8">
-                <div class="text-center"> 
-                    <div class="card-group">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Disponibilidad</h5>
-                                <button type="button" class="btn btn-dark btn-sm">20</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Entradas</h5>
-                                <button type="button" class="btn btn-dark btn-sm">154</button>
-
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Salidas</h5>
-                                <button type="button" class="btn btn-dark btn-sm">54</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2"></div>
-        </div>
-
-        <br>
-        {{-- <hr class="my-4"> --}}
-    </div>
-</div>
 
 @endsection

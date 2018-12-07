@@ -19,7 +19,7 @@ Auth::routes();
 // Autentificación
 Route::get('/', 'HomeController@index')->name('home');
 //ADMIN index page
-Route::get('admin', 'AdminController@index');
+// Route::get('admin', 'AdminController@index');
 Route::get('registro_guardia', 'AdminController@guardia');
 Route::get('usuarios', 'UsuariosController@index');
 Route::get('entradas', 'AdminController@entradas');
@@ -27,7 +27,7 @@ Route::get('entradas', 'AdminController@entradas');
 Route::post('usuarios', 'UsuariosController@store');
 //guardar un guardia_puerta
 Route::post('guardia_puerta', 'AdminController@guardia_puerta_store');
-
+Route::post('guardia_puerta', 'AdminController@guardar_visitante');
 
 //return vistas
 // Route::get('entradas', function () {

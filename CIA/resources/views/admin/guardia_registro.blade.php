@@ -87,9 +87,9 @@
             {{-- botones --}}
             <div class="col-4 text-right">
                 <br><br>
-                <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Estadísticas">
+                {{-- <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Estadísticas">
                     <i class="fas fa-chart-pie"></i>
-                </button> 
+                </button>  --}}
                 {{-- <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
                     <i class="fas fa-file-excel"></i>
                 </button> --}}

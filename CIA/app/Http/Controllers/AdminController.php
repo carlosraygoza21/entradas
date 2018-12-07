@@ -12,7 +12,13 @@ use Dotenv\Exception\ValidationException;
 class AdminController extends Controller
 {
     public function index(){
-        return view ('admin/index_admin');
+        // $data = [];
+        // $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
+        //     ->join('perfil_puerta', 'puerta.id_perfil_puerta', '=', 'perfil_puerta.id')
+        //     ->where('perfil_puerta.id', '=', '1')
+        //     ->get();
+
+        // return view ('admin/index_admin')->with(compact('puertas'));
     }
 
     public function index_guardia(){
@@ -208,14 +214,47 @@ class AdminController extends Controller
             ->orderBy('logs_usuarios.fecha','desc')
             ->get();
 
-        $puertas = DB::table('puerta')->select('puerta.id', 'puerta.domicilio', 'perfil_puerta.nombre')
-            ->join('perfil_puerta', 'puerta.id_perfil_puerta', '=', 'perfil_puerta.id')
-            ->where('perfil_puerta.id', '=', '1')
-            ->get();
-
         return view('admin/estacionamiento')->with(compact('registros', 'puertas'));
     }
 
 
+    //GUARDIA SECCION
+    public function guardar_visitante()
+    {
+        $segunda_base = env('DB_CONNECTION_dos'); 
+        //OBTENCIÓN DE DATOS DEL FORM
+        $insert = new GuardiaPuerta();
+        // $insert->id = request('id');
+        $insert->id_usuario = request('id_usuario');
+        $insert->tiempo = request('tiempo');
+        $insert->id_puerta = request('id_puerta');
+        $insert->eliminado = 0;
 
+        //TRANSACCIÓN PARA GUARDAR EN AMBAS BASES
+        DB::beginTransaction();
+        try {
+            //PRIMERA INSERCIÓN
+            DB::connection($segunda_base)->table('guardia_puerta')->insert(
+                [
+                    // 'id' => $insert->id,
+                    'id_usuario' => $insert->id_usuario,
+                    'id_puerta' => $insert->id_puerta,
+                    'tiempo' => $insert->tiempo,
+                    'eliminado' => $insert->eliminado,
+                ]
+            );
+            //SEGUNDA INSERCIÓN
+            $insert->save();
+        } catch (ValidationException $e) {
+            DB::rollback();
+            throw $e;
+            return redirect()->action('AdminController@guardia')->with('message', 'error');
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+            return redirect()->action('AdminController@guardia')->with('message', 'error');;
+        }
+        DB::commit();
+        return redirect()->action('AdminController@guardia');
+    }
 }

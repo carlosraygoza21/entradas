@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label class="col-12 col-form-label">Código</label>
                             <div class="col-12">                                
-                                <input class="form-control" name="id" type="text" placeholder="" required>
+                                <input class="form-control" name="id" type="text" value="0" required>
                             </div>
                         </div>
                         
@@ -83,9 +83,9 @@
             {{-- botones --}}
             <div class="col-4 text-right">
                 <br><br>
-                <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Estadísticas">
+                {{-- <button type="button" class="btn btn-danger" href="/estadisticas" data-toggle="tooltip" data-placement="top" title="Estadísticas">
                     <i class="fas fa-chart-pie"></i>
-                </button> 
+                </button>  --}}
                 {{-- <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Exportar">
                     <i class="fas fa-file-excel"></i>
                 </button> --}}
